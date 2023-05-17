@@ -10,7 +10,7 @@ const getPokesApi = async () => {
         );
 
         //segunda peticion para traer los datos de cada pokemon
-        let pokeInfo = pokeApi.data.results.map((p) => axios.get(p.url));
+        let pokeInfo = pokeApi.data.results.map((p) => axios.get(p.url)); // propiedad que tiene cada pokemon!
 
         //tercera peticion para traer los datos de cada pokemon que necesitamos
         let pokeResults = axios.all(pokeInfo).then((poke) => {
@@ -24,7 +24,7 @@ const getPokesApi = async () => {
                     speed: p.data.stats[5].base_stat,
                     height: p.data.height,
                     weight: p.data.weight,
-                    types: p.data.types.map((t) => t.type.name),
+                    types: p.data.types.map((t) => ({name:t.type.name})),
                     img: p.data.sprites.other.home.front_default,
                 });
             });
