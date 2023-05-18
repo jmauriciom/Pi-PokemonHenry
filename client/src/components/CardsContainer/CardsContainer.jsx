@@ -2,6 +2,7 @@ import { useSelector } from "react-redux"
 import Card from "../Card/Card"
 import style from "./CardsContainer.module.css"
 import { useEffect, useState } from "react"
+import FilterAndOrder from "../Filters/filters"
 
 
 const CardsContainer = () => {
@@ -56,11 +57,11 @@ const CardsContainer = () => {
         return savedPage ? parseInt(savedPage, 10) : null;
     }
 
-    
     return (
         <div className={style.container}>
-            {displayedPokemons.map(pokemon => {
-                return (
+        <FilterAndOrder/>
+            {pokemon.length === 1 ?
+                pokemon.map((pokemon) => (
                     <Card
                         key={pokemon.id}
                         id={pokemon.id}
@@ -68,8 +69,20 @@ const CardsContainer = () => {
                         img={pokemon.img}
                         types={pokemon.types.map((v) => v.name).join(' / ')}
                     />
-                )
-            })}
+                ))
+                :
+                displayedPokemons.map(pokemon => {
+                    return (
+                        <Card
+                            key={pokemon.id}
+                            id={pokemon.id}
+                            name={pokemon.name}
+                            img={pokemon.img}
+                            types={pokemon.types.map((v) => v.name).join(' / ')}
+                        />
+                    )
+                })
+            }
             <div className={style.pagination}>
                 {page > 1 && (
                     <button onClick={handleFirstPage} disabled={page === 1}>

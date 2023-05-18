@@ -10,7 +10,10 @@ import {
     ORDER_BY_ATTACK,
     ORDER_BY_NAME,
     DELETE_POKEMON,
-    CLEAN_DETAIL
+    CLEAN_DETAIL,
+    SEARCH_POKEMONS,
+    RESET_POKEMONS,
+    CREATE_POKEMON,
 } from "./actions"
 
 
@@ -33,11 +36,11 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state, pokemonDetail: action.payload
             }
-            case CLEAN_DETAIL:
-                return {
-                    ...state,
-                    pokemonDetail: []
-                }
+        case CLEAN_DETAIL:
+            return {
+                ...state,
+                pokemonDetail: []
+            }
         case GET_TYPES:
             return {
                 ...state, infoType: action.payload
@@ -47,11 +50,15 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state, pokemonFilter: filteredPokemon.length > 0 ? filteredPokemon : []
             }
-        case FILTER_TYPE:
-            return {
-                ...state,
-                pokemonFilter: state.pokemon.filter((p) => p.types.includes(action.payload))
-            }
+            case FILTER_TYPE:
+                let filterType = action.payload === "all" ? 
+                [...state.pokemonFilter] :
+                [...state.pokemonFilter].filter(t => t.types?.some(e => e.name === action.payload))
+                return {
+                    ...state,
+                    pokemon :  filterType
+                
+                };
         case FILTER_TYPE_TWO:
             const { firsType, secondType } = action.payload
             const filteredPokemonsType = state.pokemon.filter((p) =>
@@ -63,46 +70,75 @@ const rootReducer = (state = initialState, action) => {
         case FILTER_BY_DB:
             return {
                 ...state,
-                pokemonFilter: state.pokemon.filter((p) => typeof p.id === 'string')
-            }
+                pokemon: state.pokemon.filter(
+                    (pokemon) => typeof pokemon.id === "string"
+                ),
+            };
+
         case FILTER_BY_API:
             return {
                 ...state,
-                pokemonFilter: state.pokemon.filter((p) => typeof p.id === 'number')
-            }
+                pokemon: state.pokemon.filter(
+                    (pokemon) => typeof pokemon.id === "number"
+                ),
+            };
+
         case ORDER_BY_ATTACK:
             const orderAttack =
-                action.payload === 'asc' ? state.pokemonFilter.sort((a, b) => a.attack - b.attack) :
-                    state.pokemonFilter.sort((a, b) => b.attack - a.attack)
+                action.payload === "asc"
+                    ? state.pokemon.slice().sort((a, b) => {
+                        return b.attack - a.attack;
+                    })
+                    : state.pokemon.slice().sort((a, b) => {
+                        return a.attack - b.attack;
+                    });
             return {
                 ...state,
-                pokemonFilter: orderAttack
-            }
+                pokemon: orderAttack,
+            };
+
         case ORDER_BY_NAME:
             const orderName =
-                action.payload === 'asc' ? state.pokemonFilter.slice().sort((a, b) => {
-                    let first = a.name.toLowerCase()
-                    let second = b.name.toLowerCase()
-                    if (first > second) return 1
-                    if (first < second) return -1
-                    return 0
-                })
-                    : state.pokemonFilter.slice().sort((a, b) => {
-                        let first = a.name.toLowerCase()
-                        let second = b.name.toLowerCase()
-                        if (first > second) return -1
-                        if (first < second) return 1
-                        return 0
+                action.payload === "asc"
+                    ? state.pokemon.slice().sort((a, b) => {
+                        let first = a.name.toLowerCase();
+                        let second = b.name.toLowerCase();
+                        if (first > second) return 1;
+                        if (first < second) return -1;
+                        return 0;
                     })
+                    : state.pokemon.slice().sort((a, b) => {
+                        let first = a.name.toLowerCase();
+                        let second = b.name.toLowerCase();
+                        if (first > second) return -1;
+                        if (first < second) return 1;
+                        return 0;
+                    });
             return {
                 ...state,
-                pokemonFilter: orderName
+                pokemon: orderName,
             }
         case DELETE_POKEMON:
             return {
                 ...state,
                 pokemon: action.payload,
                 pokemonFilter: action.payload
+            }
+        case SEARCH_POKEMONS:
+            let pokemonFounded = action.payload.length > 0 ? action.payload : [...state.pokemonFilter]
+            return {
+                ...state,
+                pokemon: pokemonFounded
+            }
+        case RESET_POKEMONS:
+            return {
+                ...state,
+                pokemon: action.payload
+            }
+        case CREATE_POKEMON:
+            return {
+                ...state,
+                pokemon: [ action.payload,...state.pokemon ]
             }
         default:
             return { ...state }

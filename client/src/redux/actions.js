@@ -12,6 +12,9 @@ export const ORDER_BY_ATTACK = 'ORDER_BY_ATTACK'
 export const ORDER_BY_NAME = 'ORDER_BY_NAME'
 export const DELETE_POKEMON = 'DELETE_POKEMON'
 export const CLEAN_DETAIL = 'CLEAN_DETAIL'
+export const SEARCH_POKEMONS = 'SEARCH_POKEMONS'
+export const RESET_POKEMONS = 'RESET_POKEMONS'
+export const CREATE_POKEMON = 'CREATE_POKEMON'
 
 
 /*********************************************************************************************************************/
@@ -43,7 +46,7 @@ export const getPokemonName = (name) => {
 }
 export const getTypes = () => {
     return async function (dispatch) {
-        const apiData = await axios.get(`http://localhost:3001/types`)
+        const apiData = await axios.get(`http://localhost:3001/type`)
         const type = apiData.data
         dispatch({ type: GET_TYPES, payload: type })
     }
@@ -86,7 +89,30 @@ export const filterByName = (method) => {
 export const deletedPokemon = (id) => {
     return async function (dispatch) {
         const apiData = await axios.delete(`http://localhost:3001/pokemons/${id}`);
-        const pokemon = apiData.data;
+        const pokemon = apiData.data
         dispatch({ type: DELETE_POKEMON, payload: pokemon });
+    }
+}
+export const searchPokemon = (name) => {
+    return async function (dispatch) {
+        const apiData = await axios.get(`http://localhost:3001/pokemon?name=${name}`)
+        const pokemon = apiData.data
+        dispatch({ type: SEARCH_POKEMONS, payload: pokemon})
+    }
+} //poner catch para el error?
+export function resetPokemons () {
+    return {
+        type: RESET_POKEMONS,
+        payload: []
+    }
+}
+export const createPokemon = (pokemon) => {
+    return async function (dispatch) {
+        const apiData = await axios.post('http://localhost:3001/pokemon', pokemon)
+        const poke = apiData.data
+        dispatch({
+            type: 'CREATE_POKEMON',
+            payload: poke
+        })
     }
 }
