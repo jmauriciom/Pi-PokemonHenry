@@ -1,11 +1,11 @@
 const validation = (value) => {
     let errors = {};
     
-    if (!value.name) errors.name = "Need a name"
     if(!/^[A-Za-z]{2,30}$/g.test(value.name)) errors.name = "Only letters"
+    if (!value.name) errors.name = "Need a name"
 
-    if (!value.img) errors.img = "Need an image"
     if (!/\.(jpeg|jpg|gif|png|bmp|svg)$/i.test(value.img)) errors.img = "Enter Url Image"
+    if (!value.img) errors.img = "Need an image"
 
     if(!value.hp) errors.hp = "Need hp"
     if(value.hp < 0 || value.hp > 255) errors.hp = "Hp must be between 0 and 255"
