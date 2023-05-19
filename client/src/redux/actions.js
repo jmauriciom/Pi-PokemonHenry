@@ -14,7 +14,7 @@ export const DELETE_POKEMON = 'DELETE_POKEMON'
 export const CLEAN_DETAIL = 'CLEAN_DETAIL'
 export const SEARCH_POKEMONS = 'SEARCH_POKEMONS'
 export const RESET_POKEMONS = 'RESET_POKEMONS'
-export const CREATE_POKEMON = 'CREATE_POKEMON'
+export const POST_POKEMON = 'POST_POKEMON'
 
 
 /*********************************************************************************************************************/
@@ -106,12 +106,12 @@ export function resetPokemons () {
         payload: []
     }
 }
-export const createPokemon = (pokemon) => {
+export const postPokemon = (pokemon) => {
     return async function (dispatch) {
         const apiData = await axios.post('http://localhost:3001/pokemon', pokemon)
         const poke = apiData.data
         dispatch({
-            type: 'CREATE_POKEMON',
+            type: POST_POKEMON,
             payload: poke
         })
     }

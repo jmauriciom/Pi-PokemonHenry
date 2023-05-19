@@ -1,154 +1,183 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getTypes } from "../../redux/actions";
+import usePostPokemon from "../../hooks/usePostPokemon";
+import useGetTypes from "../../hooks/useGetTypes";
+import validation from "./validatePokemonForm";
+
 
 const Form = () => {
-  const dispatch = useDispatch();
-  const infoTypes = useSelector((state) => state.infoType);
+  const [selectedType, setSelectedType] = useState([]);
+  const [input, handleInputChange, handleSelectChange, handleSubmit] =
+    usePostPokemon({ setSelectedType });
+  const types = useGetTypes();
 
-  useEffect(() => {
-    dispatch(getTypes());
-  }, [dispatch]);
-
-  const [form, setForm] = useState({
-    name: '',
-    hp: '',
-    attack: '',
-    defense: '',
-    speed: '',
-    height: '',
-    weight: '',
-    img: '',
-    types: [],
-  });
-
-
-  const changeHandler = (event) => {
-    const property = event.target.name;
-    const value = event.target.value;
-
-    if (property === "types") {
-      const selectedTypes = Array.from(
-        event.target.selectedOptions,
-        (option) => option.value
-      );
-      setForm({ ...form, [property]: selectedTypes });
-    } else {
-      setForm({ ...form, [property]: value });
+  const handleTypeSelection = (event) => {
+    const selectedTypesName = event.target.value;
+    const selectedTypes = types.find((t) => t.name === selectedTypesName);
+    if (selectedType) {
+      setSelectedType([...selectedType, selectedTypes]);
     }
   };
 
-  // const validate = (form) => {
-
-  // }
-
-  const submitHandler = (event) => {
-    event.preventDefault();
-    // evito que se recarge la pagina al usar el boton submit
-    const response = axios
-      .post("http://localhost:3001/pokemon", form)
-      .then((res) => alert(res));
+  const handleTypeRemoval = (typeName) => {
+    const updatedSelectedTypes = selectedType.filter(
+      (type) => type.name !== typeName
+    );
+    setSelectedType(updatedSelectedTypes);
   };
 
+  const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    setErrors(validation(input));
+  }, [input])
+
   return (
-    <form onSubmit={submitHandler}>
+    <form onSubmit={handleSubmit}>
       <div>
-        <label>Name: </label>
+        <label htmlFor="name">Name: </label>
         <input
           type="text"
-          value={form.name}
-          onChange={changeHandler}
+          value={input.name}
+          onChange={handleInputChange}
           name="name"
         />
+        <div>
+          {errors.name && <span>{errors.name}</span>}
+        </div>
       </div>
 
       <div>
-        <label>Image: </label>
+        <label htmlFor="image">Image: </label>
         <input
           type="text"
-          value={form.img}
-          onChange={changeHandler}
+          value={input.img}
+          onChange={handleInputChange}
           name="img"
         />
+        <div>
+          {errors.img && <span>{errors.img}</span>}
+        </div>
       </div>
 
       <div>
-        <label>Hp: </label>
+        <label>hp: </label>
         <input
           type="number"
-          value={form.hp}
-          onChange={changeHandler}
+          min={0}
+          max={255}
+          value={input.hp}
+          onChange={handleInputChange}
           name="hp"
         />
+        <div>
+          {errors.hp && <span>{errors.hp}</span>}
+        </div>
       </div>
 
       <div>
         <label>Attack: </label>
         <input
           type="number"
-          value={form.attack}
-          onChange={changeHandler}
+          min={0}
+          max={255}
+          value={input.attack}
+          onChange={handleInputChange}
           name="attack"
         />
+        <div>
+          {errors.attack && <span>{errors.attack}</span>}
+        </div>
       </div>
 
       <div>
         <label>Defense: </label>
         <input
           type="number"
-          value={form.defense}
-          onChange={changeHandler}
+          min={0}
+          max={255}
+          value={input.defense}
+          onChange={handleInputChange}
           name="defense"
         />
+        <div>
+          {errors.defense && <span>{errors.defense}</span>}
+        </div>
       </div>
 
       <div>
         <label>Speed: </label>
         <input
           type="number"
-          value={form.speed}
-          onChange={changeHandler}
+          min={0}
+          max={255}
+          value={input.speed}
+          onChange={handleInputChange}
           name="speed"
         />
+        <div>
+          {errors.speed && <span>{errors.speed}</span>}
+        </div>
       </div>
 
       <div>
         <label>Height: </label>
         <input
           type="number"
-          value={form.height}
-          onChange={changeHandler}
+          min={0}
+          max={255}
+          value={input.height}
+          onChange={handleInputChange}
           name="height"
         />
+        <div>
+          {errors.height && <span>{errors.height}</span>}
+        </div>
       </div>
 
       <div>
         <label>Weight: </label>
         <input
           type="number"
-          value={form.weight}
-          onChange={changeHandler}
+          min={0}
+          max={255}
+          value={input.weight}
+          onChange={handleInputChange}
           name="weight"
         />
-
+        <div>
+          {errors.weight && <span>{errors.weight}</span>}
+        </div>
       </div>
+
       <div>
-      <label>Types: </label>
-      <select
-          multiple
-          value={form.types}
-          onChange={changeHandler}
+        <label htmlFor="types">Types: </label>
+        <select
           name="types"
+          onChange={(e) => {
+            handleSelectChange(e);
+            handleTypeSelection(e);
+          }}
+          multiple
         >
-          {infoTypes.map((type) => (
-            <option key={type.id} value={type.name}>
-              {type.name}
+          <option value="">Select types</option>
+          {types.map((t, i) => (
+            <option key={i} value={t.name}>
+              {t.name}
             </option>
           ))}
         </select>
-    </div>
-      <button type="submit">SUBMIT</button>
+      </div>
+      {selectedType.map((type, index) => (
+        <li key={index} >
+          {type.name}
+          <span
+            onClick={() => handleTypeRemoval(type.name)}
+          >
+            ❌
+          </span>
+        </li>
+      ))}
+      <button type="submit" disabled={Object.keys(errors).length > 0}>SUBMIT</button>
     </form>
   );
 };

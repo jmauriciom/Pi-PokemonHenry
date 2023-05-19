@@ -53,27 +53,24 @@ const getAllPokes = async () => {
 };
 
 //carga los tipos de pokemons en la db
-const loadingPokesDB = async () => {
-    try {
-        let pokeArray = [];
-        await axios
-            .get("https://pokeapi.co/api/v2/type")
-            .then((pokeTypes) =>
-                pokeTypes.data.results.map((t) => pokeArray.push({ name: t.name }))
-            );
-        const pokeTypes = await Types.findAll();
-        if (pokeTypes.length === 0) {
-            await Types.bulkCreate(pokeArray);
-        }
-    } catch (error) {
-        console.log(error);
-    }
-};
+const getTypes = async () => {
+    const types = await axios('https://pokeapi.co/api/v2/type');
+    const mapTypes = types.data.results.map((type) => type.name);
+  
+    // Creo todos los tipos en mi base de datos
+    mapTypes.forEach((types) => {
+      Types.findOrCreate({where: {name: types}})
+    })
+  
+    const typeDB = await Types.findAll();
+  
+    return typeDB;  
+  }
 
 
 module.exports = {
     getPokesApi,
     getPokesDB,
     getAllPokes,
-    loadingPokesDB,
+    getTypes,
 };

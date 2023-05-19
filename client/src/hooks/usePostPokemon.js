@@ -1,59 +1,58 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from 'react-router-dom';
-import { createPokemon } from "../redux/actions";
+import { useHistory } from 'react-router-dom';
+import { postPokemon } from "../redux/actions";
 
-const usePostPokemon = ({setSelectedPokemons}) => {
-    const navigate = useNavigate();
+
+const usePostPokemon = ({ setSelectedType }) => {
+    const history = useHistory();
     const dispatch = useDispatch();
     const [input, setInput] = useState({
-        name: '',
-        hp: '',
-        attack: '',
-        defense: '',
-        speed: '',
-        height: '',
-        weight: '',
-        img: '',
-        types: [],
-});
-
-
-const handleInputChange = (e) => {
-    setInput({
-        ...input,
-        [e.target.name]: e.target.value
-    });
-};
-
-const handleSelectChange = (e) => {
-    setInput({
-        ...input,
-        types: [...input.types, e.target.value]
-    });
-};
-
-const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(createPokemon(input));
-    setInput({
-        name: '',
-        hp: '',
-        attack: '',
-        defense: '',
-        speed: '',
-        height: '',
-        weight: '',
-        img: '',
+        name: "",
+        img: "",
+        hp: "",
+        attack: "",
+        defense: "",
+        speed: "",
+        height: "",
+        weight: "",
         types: [],
     });
-    setSelectedPokemons([]);
-    navigate('/home');
-    console.log(input)
+
+    const handleInputChange = (event) => {
+        setInput({
+            ...input,
+            [event.target.name]: event.target.value
+        })
+    };
+
+    const handleSelectChange = (event) => {
+        setInput({
+            ...input,
+            types: [...input.types, event.target.value]
+        })
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        dispatch(postPokemon(input))
+        setInput({
+            name: "",
+            img: "",
+            hp: "",
+            attack: "",
+            defense: "",
+            speed: "",
+            height: "",
+            weight: "",
+            types: [],
+        });
+        setSelectedType([]);
+        history.push('./home');        
+    };
+
+    return [input, handleInputChange, handleSelectChange, handleSubmit];
+
 };
-
-
-return [input, handleInputChange, handleSelectChange, handleSubmit];
-}
 
 export default usePostPokemon;

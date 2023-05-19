@@ -60,25 +60,15 @@ const CardsContainer = () => {
     return (
         <div className={style.container}>
         <FilterAndOrder/>
-            {pokemon.length === 1 ?
-                pokemon.map((pokemon) => (
-                    <Card
-                        key={pokemon.id}
-                        id={pokemon.id}
-                        name={pokemon.name}
-                        img={pokemon.img}
-                        types={pokemon.types.map((v) => v.name).join(' / ')}
-                    />
-                ))
-                :
+            {
                 displayedPokemons.map(pokemon => {
                     return (
                         <Card
-                            key={pokemon.id}
-                            id={pokemon.id}
-                            name={pokemon.name}
-                            img={pokemon.img}
-                            types={pokemon.types.map((v) => v.name).join(' / ')}
+                            key={pokemon?.id}
+                            id={pokemon?.id}
+                            name={pokemon?.name}
+                            img={pokemon?.img}
+                            types={pokemon?.types?.map((v) => v.name).join(' / ')}
                         />
                     )
                 })

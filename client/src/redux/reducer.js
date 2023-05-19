@@ -13,7 +13,7 @@ import {
     CLEAN_DETAIL,
     SEARCH_POKEMONS,
     RESET_POKEMONS,
-    CREATE_POKEMON,
+    POST_POKEMON,
 } from "./actions"
 
 
@@ -135,7 +135,7 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 pokemon: action.payload
             }
-        case CREATE_POKEMON:
+        case POST_POKEMON:
             return {
                 ...state,
                 pokemon: [ action.payload,...state.pokemon ]
