@@ -8,10 +8,11 @@ const Detail = () => {
     const pokemon = pokemonData[0]
     console.log(pokemon);
     return (
-        <div>
+        <div >
             {
                 pokemon ?
                     <>
+                    <div className={style.detail}>
                         <p>name: {pokemon.name}</p>
                         <img src={pokemon.img} alt="" />
                         <p>hp: {pokemon.hp}</p>
@@ -26,9 +27,11 @@ const Detail = () => {
                                 <p key={index} className={style[`type-${v.name}`]}>{v.name}</p>
                             ))}
                         </div>
+                        </div>
                     </>
                     :
-                    <div className={style.loadingSpinner}></div>
+                    <div className={style.loadingSpinner}>
+                    </div>
             }
         </div>
     );

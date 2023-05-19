@@ -7,10 +7,13 @@ const Card = ({ id , name, img, types }) => {
     return (
         <div className={style.card}>
             <div>
-                <Link to={`/detail/${id}`}>name: {name}</Link>
+            {name}
             </div>
             <div>
+            <Link to={`/detail/${id}`}>
                 <img src={img} alt='' />
+            </Link>
+                
             </div>
             <p>Types: {types}</p>
         </div>
