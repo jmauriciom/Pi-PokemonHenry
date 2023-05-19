@@ -47,7 +47,7 @@ const FilterAndOrder = () => {
         'ice', 
         'poison', 
         'ground',
-        'psiquic',
+        'psychic',
         'fighting',
         'flying',
         'steel',

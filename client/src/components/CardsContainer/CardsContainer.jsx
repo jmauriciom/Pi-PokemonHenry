@@ -11,7 +11,6 @@ const CardsContainer = () => {
 
     const [page, setPage] = useState(getSavedPage() || 1);
 
-
     const CARDS_PER_PAGE = 12;
 
     const maxPage = Math.ceil(pokemon.length / CARDS_PER_PAGE);
@@ -57,9 +56,40 @@ const CardsContainer = () => {
         return savedPage ? parseInt(savedPage, 10) : null;
     }
 
+    const goToPage = (pageNumber) => {
+        setPage(pageNumber);
+    };
+
     return (
         <div className={style.container}>
-        <FilterAndOrder/>
+            <div className={style.pagination}>
+                {page > 1 && (
+                    <button onClick={handleFirstPage} disabled={page === 1}>
+                        &lt;&lt; 1
+                    </button>
+                )}
+                <button onClick={handlePrevPage} disabled={page === 1}>
+                    Anterior
+                </button>
+
+                {Array.from({ length: maxPage }, (_, index) => (
+                    <button key={index} onClick={() => goToPage(index + 1)} 
+                    className={page === index + 1 ? style.active : ''}>
+                        {index + 1}
+                    </button>
+                ))}
+
+                <button onClick={handleNextPage} disabled={page === maxPage}>
+                    Siguiente
+                </button>
+                {page < maxPage && (
+                    <button onClick={handleLastPage} disabled={page === maxPage}>
+                        {maxPage} &gt;&gt;
+                    </button>
+                )}
+            </div>
+
+            <FilterAndOrder />
             {
                 displayedPokemons.map(pokemon => {
                     return (
@@ -73,24 +103,7 @@ const CardsContainer = () => {
                     )
                 })
             }
-            <div className={style.pagination}>
-                {page > 1 && (
-                    <button onClick={handleFirstPage} disabled={page === 1}>
-                        &lt;&lt; 1
-                    </button>
-                )}
-                <button onClick={handlePrevPage} disabled={page === 1}>
-                    Anterior
-                </button>
-                <button onClick={handleNextPage} disabled={page === maxPage}>
-                    Siguiente
-                </button>
-                {page < maxPage && (
-                    <button onClick={handleLastPage} disabled={page === maxPage}>
-                        {maxPage} &gt;&gt;
-                    </button>
-                )}
-            </div>
+
         </div>
     )
 }

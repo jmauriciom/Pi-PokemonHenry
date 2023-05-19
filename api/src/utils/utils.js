@@ -6,7 +6,7 @@ const getPokesApi = async () => {
         let pokeData = [];
         //primera peticion a la api para traer los 60 primeros pokemones
         const pokeApi = await axios.get(
-            "https://pokeapi.co/api/v2/pokemon?offset=0&limit=60"
+            "https://pokeapi.co/api/v2/pokemon?offset=0&limit=150"
         );
 
         //segunda peticion para traer los datos de cada pokemon

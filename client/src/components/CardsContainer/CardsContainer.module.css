@@ -34,3 +34,11 @@
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+.container .pagination .active {
+    background-color: #91f2ff71;
+    backdrop-filter: blur(10px);
+    padding: 5px;
+    border-radius: 7px;
+    border: 1px solid black;
+}
