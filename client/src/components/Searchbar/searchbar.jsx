@@ -1,5 +1,6 @@
 import React from "react";
 import useGetPokemonByName from "../../hooks/useGetPokemonByName"; 
+import style from "./searchbar.module.css"
 
 
 
@@ -16,7 +17,7 @@ const SearchBar = () => {
 
     return (
         <div>
-            <input type="text" placeholder="Search Pokemon" value={pokemon} onChange={handlePokemonSelection} />
+            <input type="text" placeholder="Search Pokemon" value={pokemon} className={style.redondeado} onChange={handlePokemonSelection} />
         </div>
     )
 }

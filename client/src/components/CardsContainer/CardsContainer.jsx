@@ -89,7 +89,7 @@ const CardsContainer = () => {
                 )}
             </div>
 
-            <FilterAndOrder />
+            <FilterAndOrder setPage={setPage}/>
             {
                 displayedPokemons.map(pokemon => {
                     return (

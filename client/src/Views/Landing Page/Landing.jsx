@@ -4,7 +4,7 @@ const Landing = () => {
     return (
         <div>
             <Link to="/home">
-                <div>Estas en Landing, haz click en "HOME" para ir a la página principal</div>
+                <div>BIENVENIDO AL MUNDO POKEMON, HAZ CLICK PARA ENTRAR!</div>
             </Link>
         </div>
     );

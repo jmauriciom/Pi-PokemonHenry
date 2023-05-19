@@ -10,7 +10,7 @@ import {
 } from "../../redux/actions";
 
 
-const FilterAndOrder = () => {
+const FilterAndOrder = ({setPage}) => {
 
     
     const dispatch = useDispatch();
@@ -30,6 +30,7 @@ const FilterAndOrder = () => {
         const handleTypeFilter = (e) => {
         const selectedType = e.target.value;
         dispatch(filterType(selectedType));
+        setPage(1);
         };
 
         const types = [

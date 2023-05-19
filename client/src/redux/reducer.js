@@ -50,15 +50,15 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state, pokemonFilter: filteredPokemon.length > 0 ? filteredPokemon : []
             }
-            case FILTER_TYPE:
-                let filterType = action.payload === "all" ? 
+        case FILTER_TYPE:
+            let filterType = action.payload === "all" ?
                 [...state.pokemonFilter] :
                 [...state.pokemonFilter].filter(t => t.types?.some(e => e.name === action.payload))
-                return {
-                    ...state,
-                    pokemon :  filterType
-                
-                };
+            return {
+                ...state,
+                pokemon: filterType
+
+            };
         case FILTER_TYPE_TWO:
             const { firsType, secondType } = action.payload
             const filteredPokemonsType = state.pokemon.filter((p) =>
@@ -138,7 +138,7 @@ const rootReducer = (state = initialState, action) => {
         case POST_POKEMON:
             return {
                 ...state,
-                pokemon: [ action.payload,...state.pokemon ]
+                pokemon: [action.payload, ...state.pokemon]
             }
         default:
             return { ...state }

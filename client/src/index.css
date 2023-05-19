@@ -5,6 +5,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url(images/pokebola-y-pokemones_1920x1080_xtrafondos.com.jpg);
+  background-size: 100%;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 code {
