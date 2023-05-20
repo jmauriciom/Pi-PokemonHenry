@@ -13,7 +13,7 @@ const Detail = () => {
                 pokemon ?
                     <>
                     <div className={style.detail}>
-                        <h2>{pokemon.name}</h2>
+                        <h2>{(pokemon.name).toUpperCase()}</h2>
                         <img src={pokemon.img} alt="" />
                         <p><strong>HP: {pokemon.hp}</strong></p>
                         <p><strong>ATTACK: {pokemon.attack}</strong></p>
