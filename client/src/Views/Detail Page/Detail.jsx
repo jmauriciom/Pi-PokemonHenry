@@ -13,19 +13,16 @@ const Detail = () => {
                 pokemon ?
                     <>
                     <div className={style.detail}>
-                        <p>name: {pokemon.name}</p>
+                        <h2>{pokemon.name}</h2>
                         <img src={pokemon.img} alt="" />
-                        <p>hp: {pokemon.hp}</p>
-                        <p>attack: {pokemon.attack}</p>
-                        <p>defense: {pokemon.defense}</p>
-                        <p>speed: {pokemon.speed}</p>
-                        <p>height: {pokemon.height}</p>
-                        <p>weight: {pokemon.weight}</p>
-                        <div>
-                            {/* types: {pokemon.types.map((v) => v.name).join(' / ')} */}
-                            types: {pokemon.types.map((v, index) => (
-                                <p key={index} className={style[`type-${v.name}`]}>{v.name}</p>
-                            ))}
+                        <p><strong>HP: {pokemon.hp}</strong></p>
+                        <p><strong>ATTACK: {pokemon.attack}</strong></p>
+                        <p><strong>DEFENSE: {pokemon.defense}</strong></p>
+                        <p><strong>SPEED: {pokemon.speed}</strong></p>
+                        <p><strong>HEIGHT: {pokemon.height}</strong></p>
+                        <p><strong>WEIGHT: {pokemon.weight}</strong></p>
+                        <div style={{marginBottom: "20px"}}>
+                        <strong>TYPES: {pokemon.types.map((v) => v.name).join(' / ')}</strong>
                         </div>
                         </div>
                     </>

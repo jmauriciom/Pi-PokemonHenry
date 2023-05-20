@@ -16,8 +16,6 @@ function App() {
     <Route path="/home" render={() => <Home/>}/>
     <Route path="/detail/:id" render={() => <Detail/>}/>
     <Route path="/form" render={() => <Form/>}/>
-    
-
     </div>
   );
 }

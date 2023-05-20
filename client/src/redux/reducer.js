@@ -68,6 +68,7 @@ const rootReducer = (state = initialState, action) => {
                 pokemonFilter: filteredPokemonsType
             }
         case FILTER_BY_DB:
+            
             return {
                 ...state,
                 pokemon: state.pokemon.filter(
