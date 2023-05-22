@@ -1,4 +1,8 @@
 .redondeado {
-    border-radius: 1px;
+    border-radius: 50px;
     font-size: 20px;
+}
+
+.searchbar{
+    margin-left: 10%;
 }

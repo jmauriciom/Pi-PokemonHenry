@@ -18,9 +18,9 @@ const Detail = () => {
                         <p><strong>HP: {pokemon.hp}</strong></p>
                         <p><strong>ATTACK: {pokemon.attack}</strong></p>
                         <p><strong>DEFENSE: {pokemon.defense}</strong></p>
-                        <p><strong>SPEED: {pokemon.speed}</strong></p>
-                        <p><strong>HEIGHT: {pokemon.height}</strong></p>
-                        <p><strong>WEIGHT: {pokemon.weight}</strong></p>
+                        {pokemon.speed && <p><strong>SPEED: {pokemon.speed}</strong></p>}
+                        {pokemon.height && <p><strong>HEIGHT: {pokemon.height}</strong></p>}
+                        {pokemon.weight && <p><strong>WEIGHT: {pokemon.weight}</strong></p>}
                         <div style={{marginBottom: "20px"}}>
                         <strong>TYPES: {pokemon.types.map((v) => v.name).join(' / ')}</strong>
                         </div>

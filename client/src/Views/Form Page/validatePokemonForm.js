@@ -16,13 +16,13 @@ const validation = (value) => {
     if(!value.defense) errors.defense = "Need defense"
     if(value.defense < 0 || value.defense > 255) errors.defense = "Defense must be between 0 and 255"
 
-    if(!value.speed) errors.speed = "Need speed"
+    // if(!value.speed) errors.speed = "Need speed"
     if(value.speed < 0 || value.speed > 255) errors.speed = "Speed must be between 0 and 255"
 
-    if(!value.height) errors.height = "Need height"
+    // if(!value.height) errors.height = "Need height"
     if(value.height < 0 || value.height > 255) errors.height = "Height must be between 0 and 255"
 
-    if(!value.weight) errors.weight = "Need weight"
+    // if(!value.weight) errors.weight = "Need weight"
     if(value.weight < 0 || value.weight > 255) errors.weight = "Weight must be between 0 and 255"
 
     return errors

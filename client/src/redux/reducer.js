@@ -71,17 +71,13 @@ const rootReducer = (state = initialState, action) => {
             
             return {
                 ...state,
-                pokemon: state.pokemon.filter(
-                    (pokemon) => typeof pokemon.id === "string"
-                ),
+                pokemon: action.payload,
             };
 
         case FILTER_BY_API:
             return {
                 ...state,
-                pokemon: state.pokemon.filter(
-                    (pokemon) => typeof pokemon.id === "number"
-                ),
+                pokemon: action.payload,
             };
 
         case ORDER_BY_ATTACK:

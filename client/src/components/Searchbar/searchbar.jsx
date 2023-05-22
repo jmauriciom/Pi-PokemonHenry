@@ -1,23 +1,27 @@
-import React from "react";
-import useGetPokemonByName from "../../hooks/useGetPokemonByName";
-import style from "./searchbar.module.css"
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { searchPokemon } from "../../redux/actions";
 
+const Searchbar = () => {
+    const dispatch = useDispatch();
+    const [searchTerm, setSearchTerm] = useState("");
 
-
-const SearchBar = () => {
-
-    const [pokemon, handlerInputChange] = useGetPokemonByName();
-
-    const handlePokemonSelection = (e) => {
-        handlerInputChange(e);
-    }
+    const handleSearch = (event) => {
+        const { value } = event.target;
+        setSearchTerm(value);
+        dispatch(searchPokemon(value)); // Disparar la acción de búsqueda en el estado global
+    };
 
     return (
         <div>
-            <input type="text" placeholder="search pokemon" value={pokemon} className={style.redondeado} onChange={handlePokemonSelection} />
+            <input
+                type="text"
+                placeholder="Buscar Pokémon..."
+                value={searchTerm}
+                onChange={handleSearch}
+            />
         </div>
-    )
-}
+    );
+};
 
-
-export default SearchBar
+export default Searchbar

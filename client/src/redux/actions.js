@@ -64,15 +64,29 @@ export const filterTypeTwo = (firstType, secondType) => {
     }
 }
 export const filterByApi = () => {
-    return {
-        type: 'FILTER_BY_API',
+    return async function (dispatch) {
+        const apiData = await axios.get('http://localhost:3001/pokemon')
+        const pokemons = apiData.data
+        const pokemonsApi = pokemons.filter((pokemon) => typeof  pokemon.id === 'number')
+        dispatch({ type: 'FILTER_BY_API', payload: pokemonsApi })
+
+        // type: 'FILTER_BY_API',
     }
 }
 export const filterByDb = () => {
-    return {
-        type: 'FILTER_BY_DB',
-        payload: {}
+    return async function (dispatch) {
+        const apiData = await axios.get('http://localhost:3001/pokemon')
+        const pokemons = apiData.data
+        const pokemonsDb = pokemons.filter((pokemon) => typeof  pokemon.id === 'string')
+        dispatch({ type: 'FILTER_BY_DB', payload: pokemonsDb })
     }
+    // type: 'FILTER_BY_DB',
+    // payload: {}
+    // }
+    // return {
+    //     type: 'FILTER_BY_DB',
+    //     payload: {}
+    // }
 }
 export const filterByAttack = (method) => {
     return {
