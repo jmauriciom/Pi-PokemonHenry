@@ -1,8 +1,18 @@
 .mainContainer {
   background: rgba(24, 22, 22, 0.1);
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   padding: 20px;
   backdrop-filter: blur(15px);
   box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.imgSmall{
+  margin-left: 1px;
+  width: 100px; /* Ajusta el tamaño según tus necesidades */
+  height: auto; /* Ajusta el tamaño según tus necesidades */
+}
+
+.link{
+  text-decoration: none;
 }

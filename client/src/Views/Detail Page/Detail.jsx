@@ -1,5 +1,6 @@
 import useGetPokemonById from "../../hooks/useGetPokemonById";
 import style from "./detail.module.css"
+import pokebolalogo from "../../images/pokebolalogo.png"
 
 
 
@@ -28,6 +29,7 @@ const Detail = () => {
                     </>
                     :
                     <div className={style.loadingSpinner}>
+                    <img src={pokebolalogo} alt="Pokeball Logo" className={style.imgSmall} />
                     </div>
             }
         </div>

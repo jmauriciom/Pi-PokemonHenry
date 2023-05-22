@@ -2,38 +2,41 @@ const axios = require("axios");
 const { Pokemon, Types } = require("../db");
 
 const getPokesApi = async () => {
-    try {
-        let pokeData = [];
-        //primera peticion a la api para traer los 60 primeros pokemones
-        const pokeApi = await axios.get(
-            "https://pokeapi.co/api/v2/pokemon?offset=0&limit=150"
-        );
+  try {
+    // Realiza una solicitud GET a la API de Pokémon para obtener los primeros 150 pokémones
+    const pokeApi = await axios.get(
+      "https://pokeapi.co/api/v2/pokemon?offset=0&limit=150"
+    );
 
-        //segunda peticion para traer los datos de cada pokemon
-        let pokeInfo = pokeApi.data.results.map((p) => axios.get(p.url)); // propiedad que tiene cada pokemon!
+    // Extrae las URL de cada pokémon de la respuesta de la API
+    const pokeUrls = pokeApi.data.results.map((p) => p.url);
 
-        //tercera peticion para traer los datos de cada pokemon que necesitamos
-        let pokeResults = axios.all(pokeInfo).then((poke) => {
-            poke.map((p) => {
-                pokeData.push({
-                    id: p.data.id,
-                    name: p.data.name,
-                    hp: p.data.stats[0].base_stat,
-                    attack: p.data.stats[1].base_stat,
-                    defense: p.data.stats[2].base_stat,
-                    speed: p.data.stats[5].base_stat,
-                    height: p.data.height,
-                    weight: p.data.weight,
-                    types: p.data.types.map((t) => ({name:t.type.name})),
-                    img: p.data.sprites.other.home.front_default,
-                });
-            });
-            return pokeData;
-        });
-        return pokeResults;
-    } catch (error) {
-        console.log(error);
-    }
+    // Realiza varias solicitudes concurrentes para obtener los datos de cada pokémon
+    const pokeResponses = await Promise.all(pokeUrls.map(axios.get));
+
+    // Procesa cada respuesta para extraer la información relevante de cada pokémon
+    const pokeData = pokeResponses.map(({ data }) => {
+      const { id, name, stats, height, weight, types, sprites } = data;
+      return {
+        id,
+        name,
+        hp: stats[0].base_stat,
+        attack: stats[1].base_stat,
+        defense: stats[2].base_stat,
+        speed: stats[5].base_stat,
+        height,
+        weight,
+        types: types.map((t) => ({ name: t.type.name })),
+        img: sprites.other.home.front_default,
+      };
+    });
+
+    // Devuelve los datos de los pokémones obtenidos
+    return pokeData;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 };
 
 //traigo los pokemons de la db

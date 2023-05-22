@@ -7,12 +7,13 @@ import {
     filterByAttack,
     filterByName,
     filterType,
+    getPokemons,
 } from "../../redux/actions";
 
 
-const FilterAndOrder = ({setPage}) => {
+const FilterAndOrder = ({ setPage }) => {
 
-    
+
     const dispatch = useDispatch();
     const clickHandlerDb = () => {
         dispatch(filterByDb());
@@ -26,27 +27,27 @@ const FilterAndOrder = ({setPage}) => {
     const clickHandlerName = (e) => {
         dispatch(filterByName(e.target.value))
     }
-    
-        const handleTypeFilter = (e) => {
+
+    const handleTypeFilter = (e) => {
         const selectedType = e.target.value;
         dispatch(filterType(selectedType));
         setPage(1);
-        };
+    };
 
-        const types = [
+    const types = [
         'all',
-        'water', 
-        'fire', 
-        'grass', 
-        'electric', 
-        'fairy', 
-        'dragon', 
-        'ghost', 
-        'bug', 
-        'normal', 
-        'rock', 
-        'ice', 
-        'poison', 
+        'water',
+        'fire',
+        'grass',
+        'electric',
+        'fairy',
+        'dragon',
+        'ghost',
+        'bug',
+        'normal',
+        'rock',
+        'ice',
+        'poison',
         'ground',
         'psychic',
         'fighting',
@@ -55,17 +56,17 @@ const FilterAndOrder = ({setPage}) => {
         'dark',
         'unknown',
         'shadow',
-        ]
+    ]
 
     return (
         <div className={style.container}>
-        <select className={style.select} onChange={handleTypeFilter}>
-            {types.map((e) => (
-                <option key={e} value={e}>
-                    {e}
+            <select className={style.select} onChange={handleTypeFilter}>
+                {types.map((e) => (
+                    <option key={e} value={e}>
+                        {e}
                     </option>
-                    ))}
-                    </select>
+                ))}
+            </select>
 
             <button onClick={clickHandlerApi}>Filter Api</button>
             <button onClick={clickHandlerDb}>Filter Create</button>
@@ -77,6 +78,11 @@ const FilterAndOrder = ({setPage}) => {
             </button>
             <button value="asc" onClick={clickHandlerName}>A-Z</button>
             <button value="desc" onClick={clickHandlerName}>Z-A</button>
+            <button onClick={() => {
+                setPage(1)
+                dispatch(getPokemons())
+                dispatch(filterType('all'))
+            }}>Reset</button>
         </div>
     );
 };

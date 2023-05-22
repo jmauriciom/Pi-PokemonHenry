@@ -1,0 +1,23 @@
+
+.welcome {
+    margin-top: 50px;
+    color: aliceblue;
+    font-weight: bold; /* Aplica negrita al texto */
+    font-size: 24px; /* Ajusta el tamaño de fuente según tus necesidades */
+  }
+
+@keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .imgSmall {
+    margin-top: 320px;
+    width: 200px; /* Ajusta el tamaño según tus necesidades */
+    height: auto; /* Ajusta el tamaño según tus necesidades */
+    animation: spin 1s linear infinite; /* Aplica la animación de rotación */
+  }

@@ -3,25 +3,29 @@ import { useDispatch } from "react-redux";
 import { searchPokemon } from "../../redux/actions";
 
 const Searchbar = () => {
-    const dispatch = useDispatch();
-    const [searchTerm, setSearchTerm] = useState("");
+  const dispatch = useDispatch();
+  const [searchTerm, setSearchTerm] = useState("");
 
-    const handleSearch = (event) => {
-        const { value } = event.target;
-        setSearchTerm(value);
-        dispatch(searchPokemon(value)); // Disparar la acción de búsqueda en el estado global
-    };
+  const handleInputChange = (event) => {
+    const { value } = event.target;
+    setSearchTerm(value);
+  };
 
-    return (
-        <div>
-            <input
-                type="text"
-                placeholder="Buscar Pokémon..."
-                value={searchTerm}
-                onChange={handleSearch}
-            />
-        </div>
-    );
+  const handleSearch = () => {
+    dispatch(searchPokemon(searchTerm));
+  };
+
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder="Buscar Pokémon..."
+        value={searchTerm}
+        onChange={handleInputChange}
+      />
+      <button onClick={handleSearch}>Buscar</button>
+    </div>
+  );
 };
 
 export default Searchbar

@@ -23,16 +23,18 @@
     height: 100%;
 }
 
-.loadingSpinner{
-    background-image: url("../../images/pidgeottogiff.gif");
-    background-repeat: no-repeat;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    position: relative;
-    left: 550px;
-    width: 800px;
-    height: 600px;
-    animation: spin 1s ease-in-out infinite;
-}
+@keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .imgSmall {
+    margin-top: 320px;
+    width: 200px; /* Ajusta el tamaño según tus necesidades */
+    height: auto; /* Ajusta el tamaño según tus necesidades */
+    animation: spin 1s linear infinite; /* Aplica la animación de rotación */
+  }
