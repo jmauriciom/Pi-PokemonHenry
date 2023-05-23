@@ -80,13 +80,6 @@ export const filterByDb = () => {
         const pokemonsDb = pokemons.filter((pokemon) => typeof  pokemon.id === 'string')
         dispatch({ type: 'FILTER_BY_DB', payload: pokemonsDb })
     }
-    // type: 'FILTER_BY_DB',
-    // payload: {}
-    // }
-    // return {
-    //     type: 'FILTER_BY_DB',
-    //     payload: {}
-    // }
 }
 export const filterByAttack = (method) => {
     return {

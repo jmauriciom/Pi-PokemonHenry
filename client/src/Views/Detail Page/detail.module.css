@@ -24,17 +24,17 @@
 }
 
 @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
+  0% {
+    transform: rotate(0deg);
   }
-  
-  .imgSmall {
-    margin-top: 320px;
-    width: 200px; /* Ajusta el tamaño según tus necesidades */
-    height: auto; /* Ajusta el tamaño según tus necesidades */
-    animation: spin 1s linear infinite; /* Aplica la animación de rotación */
+  100% {
+    transform: rotate(360deg);
   }
+}
+
+.imgSmall {
+  margin-top: 335px;
+  width: 220px; /* Ajusta el tamaño según tus necesidades */
+  height: auto; /* Ajusta el tamaño según tus necesidades */
+  animation: spin 1s linear infinite; /* Aplica la animación de rotación */
+}

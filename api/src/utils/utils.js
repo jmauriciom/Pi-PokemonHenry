@@ -17,6 +17,7 @@ const getPokesApi = async () => {
     // Procesa cada respuesta para extraer la información relevante de cada pokémon
     const pokeData = pokeResponses.map(({ data }) => {
       const { id, name, stats, height, weight, types, sprites } = data;
+      //Aca tenemos los datos que queremos ingresando al array stats y a los indices que necesitamos
       return {
         id,
         name,
@@ -41,42 +42,42 @@ const getPokesApi = async () => {
 
 //traigo los pokemons de la db
 const getPokesDB = async () => {
-    const pokesDB = await Pokemon.findAll({
-        include: Types,
-    });
-    return pokesDB;
+  const pokesDB = await Pokemon.findAll({
+    include: Types,
+  });
+  return pokesDB;
 };
 
 //traigo todos los pokemons API Y BDD
 const getAllPokes = async () => {
-    const pokeApi = await getPokesApi();
-    const pokeDB = await getPokesDB();
-    const allPokes = [...pokeApi, ...pokeDB];
-    return allPokes;
+  const pokeApi = await getPokesApi();
+  const pokeDB = await getPokesDB();
+  const allPokes = [...pokeApi, ...pokeDB];
+  return allPokes;
 };
 
 //carga los tipos de pokemons en la db
 const loadingPokesDB = async () => {
-    try {
-        let pokeArray = [];
-        await axios
-            .get("https://pokeapi.co/api/v2/type")
-            .then((pokeTypes) =>
-                pokeTypes.data.results.map((t) => pokeArray.push({ name: t.name }))
-            );
-        const pokeTypes = await Types.findAll();
-        if (pokeTypes.length === 0) {
-            await Types.bulkCreate(pokeArray);
-        }
-    } catch (error) {
-        console.log(error);
+  try {
+    let pokeArray = [];
+    await axios
+      .get("https://pokeapi.co/api/v2/type")
+      .then((pokeTypes) =>
+        pokeTypes.data.results.map((t) => pokeArray.push({ name: t.name }))
+      );
+    const pokeTypes = await Types.findAll();
+    if (pokeTypes.length === 0) {
+      await Types.bulkCreate(pokeArray);
     }
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 
 module.exports = {
-    getPokesApi,
-    getPokesDB,
-    getAllPokes,
-    loadingPokesDB,
+  getPokesApi,
+  getPokesDB,
+  getAllPokes,
+  loadingPokesDB,
 };

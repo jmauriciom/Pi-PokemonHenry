@@ -5,6 +5,7 @@ import validation from "./validatePokemonForm";
 import style from "./form.module.css";
 
 
+
 const Form = () => {
   const [selectedType, setSelectedType] = useState([]);
   const [input, handleInputChange, handleSelectChange, handleSubmit] =
@@ -33,10 +34,14 @@ const Form = () => {
   }, [input])
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div className={style.pageContainer}>
+    <div className={style.createContainer}>
+
+    <form onSubmit={handleSubmit} className={style.form}>
       <div className={style.formcontainer}>
         <label htmlFor="name">Name: </label>
         <input
+        className={style.inputField}
           type="text"
           value={input.name}
           onChange={handleInputChange}
@@ -50,6 +55,7 @@ const Form = () => {
       <div className={style.formcontainer}>
         <label htmlFor="image">Image: </label>
         <input
+        className={style.inputField}
           type="text"
           value={input.img}
           onChange={handleInputChange}
@@ -63,8 +69,9 @@ const Form = () => {
       <div className={style.formcontainer}>
         <label>hp: </label>
         <input
+        className={style.inputField}
           type="number"
-          min={0}
+          min={1}
           max={255}
           value={input.hp}
           onChange={handleInputChange}
@@ -78,8 +85,9 @@ const Form = () => {
       <div className={style.formcontainer}>
         <label>Attack: </label>
         <input
+        className={style.inputField}
           type="number"
-          min={0}
+          min={1}
           max={255}
           value={input.attack}
           onChange={handleInputChange}
@@ -93,8 +101,9 @@ const Form = () => {
       <div className={style.formcontainer}>
         <label>Defense: </label>
         <input
+        className={style.inputField}
           type="number"
-          min={0}
+          min={1}
           max={255}
           value={input.defense}
           onChange={handleInputChange}
@@ -108,8 +117,9 @@ const Form = () => {
       <div className={style.formcontainer}>
         <label>Speed: </label>
         <input
+        className={style.inputField}
           type="number"
-          min={0}
+          min={1}
           max={255}
           value={input.speed}
           onChange={handleInputChange}
@@ -123,8 +133,9 @@ const Form = () => {
       <div className={style.formcontainer}>
         <label>Height: </label>
         <input
+        className={style.inputField}
           type="number"
-          min={0}
+          min={1}
           max={255}
           value={input.height}
           onChange={handleInputChange}
@@ -138,8 +149,9 @@ const Form = () => {
       <div className={style.formcontainer}>
         <label>Weight: </label>
         <input
+        className={style.inputField}
           type="number"
-          min={0}
+          min={1}
           max={255}
           value={input.weight}
           onChange={handleInputChange}
@@ -150,9 +162,10 @@ const Form = () => {
         </div>
       </div>
 
-      <div className={style.formcontainer}>
+      <div>
         <label htmlFor="types">Types: </label>
         <select
+        className={style.select}
           name="types"
           onChange={(e) => {
             handleSelectChange(e);
@@ -168,7 +181,7 @@ const Form = () => {
         </select>
       </div>
       {selectedType.map((type, index) => (
-        <li key={index} >
+        <li key={index}>
           {type.name}
           <span
             onClick={() => handleTypeRemoval(type.name)}
@@ -179,6 +192,9 @@ const Form = () => {
       ))}
       <button type="submit" disabled={Object.keys(errors).length > 0}>SUBMIT</button>
     </form>
+    </div>
+    </div>
+    
   );
 };
 
