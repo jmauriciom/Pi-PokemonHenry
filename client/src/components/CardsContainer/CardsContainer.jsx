@@ -69,7 +69,7 @@ const CardsContainer = () => {
                     </button>
                 )}
                 <button onClick={handlePrevPage} disabled={page === 1}>
-                    Anterior
+                    Prev
                 </button>
 
                 {Array.from({ length: maxPage }, (_, index) => (
@@ -80,7 +80,7 @@ const CardsContainer = () => {
                 ))}
 
                 <button onClick={handleNextPage} disabled={page === maxPage}>
-                    Siguiente
+                    Next
                 </button>
                 {page < maxPage && (
                     <button onClick={handleLastPage} disabled={page === maxPage}>
