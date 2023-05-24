@@ -21,8 +21,10 @@
   font-family: 'Open Sans', sans-serif;
   background-size: cover;
   background-attachment: fixed;
+  height: 100%;
+  min-height: 100vh;
+  background-position: center;
 }
-
 
 .createContainer {
   width: auto;

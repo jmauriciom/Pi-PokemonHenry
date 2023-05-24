@@ -4,7 +4,6 @@ import {
     GET_POKEMON_NAME,
     GET_TYPES,
     FILTER_TYPE,
-    FILTER_TYPE_TWO,
     FILTER_BY_DB,
     FILTER_BY_API,
     ORDER_BY_ATTACK,
@@ -20,7 +19,7 @@ import {
 const initialState = {
     pokemon: [],
     pokemonDetail: [],
-    pokemonFilter: [],
+    pokemonFilter: [], // no se modifica
     infoType: [],
 }
 
@@ -59,14 +58,7 @@ const rootReducer = (state = initialState, action) => {
                 pokemon: filterType
 
             };
-        case FILTER_TYPE_TWO:
-            const { firsType, secondType } = action.payload
-            const filteredPokemonsType = state.pokemon.filter((p) =>
-                p.types.includes(firsType) || p.types.includes(secondType))
-            return {
-                ...state,
-                pokemonFilter: filteredPokemonsType
-            }
+        
         case FILTER_BY_DB:
             
             return {

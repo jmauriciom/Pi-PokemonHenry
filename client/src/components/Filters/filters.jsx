@@ -34,6 +34,11 @@ const FilterAndOrder = ({ setPage }) => {
         setPage(1);
     };
 
+    const resetInput = () => { 
+        const selects = document.querySelectorAll(".resetSelect");
+            selects.forEach((select) => (select.selectedIndex = 0)); //funcion para resetear los selects
+        }
+
     const types = [
         'all',
         'water',
@@ -60,7 +65,7 @@ const FilterAndOrder = ({ setPage }) => {
 
     return (
         <div className={style.container}>
-            <select className={style.select} onChange={handleTypeFilter}>
+            <select className={`${style.select} resetSelect`} onChange={handleTypeFilter}>
                 {types.map((e) => (
                     <option key={e} value={e}>
                         {e}
@@ -82,6 +87,7 @@ const FilterAndOrder = ({ setPage }) => {
                 setPage(1)
                 dispatch(getPokemons())
                 dispatch(filterType('all'))
+                resetInput()
             }}>Reset</button>
         </div>
     );

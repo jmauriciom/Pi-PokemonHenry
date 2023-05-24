@@ -5,7 +5,6 @@ export const GET_POKEMONID = 'GET_POKEMON'
 export const GET_POKEMON_NAME = 'GET_POKEMON_NAME'
 export const GET_TYPES = 'GET_TYPES'
 export const FILTER_TYPE = 'FILTER_TYPE'
-export const FILTER_TYPE_TWO = 'FILTER_TYPE_TWO'
 export const FILTER_BY_DB = 'FILTER_BY_DB'
 export const FILTER_BY_API = 'FILTER_BY_API'
 export const ORDER_BY_ATTACK = 'ORDER_BY_ATTACK'
@@ -57,12 +56,7 @@ export const filterType = (type) => {
         payload: type
     }
 }
-export const filterTypeTwo = (firstType, secondType) => {
-    return {
-        type: 'FILTER_TYPE_TWO',
-        payload: { firstType, secondType }
-    }
-}
+
 export const filterByApi = () => {
     return async function (dispatch) {
         const apiData = await axios.get('http://localhost:3001/pokemon')
@@ -95,7 +89,7 @@ export const filterByName = (method) => {
 };
 export const deletedPokemon = (id) => {
     return async function (dispatch) {
-        const apiData = await axios.delete(`http://localhost:3001/pokemons/${id}`);
+        const apiData = await axios.delete(`http://localhost:3001/pokemon/${id}`);
         const pokemon = apiData.data
         dispatch({ type: DELETE_POKEMON, payload: pokemon });
     }
