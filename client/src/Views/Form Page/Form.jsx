@@ -33,13 +33,19 @@ const Form = () => {
     setErrors(validation(input));
   }, [input])
 
+  const Required = () => {
+    return (
+        <span style={{ color: 'red', fontSize: '12px', fontWeight: 'bold' }}>*</span>
+    )
+}
+
   return (
     <div className={style.pageContainer}>
       <div className={style.createContainer}>
 
         <form onSubmit={handleSubmit} className={style.form}>
           <div className={style.formcontainer}>
-            <label htmlFor="name">Name: </label>
+            <label htmlFor="name">Name <Required/></label>
             <input
               className={style.inputField}
               type="text"
@@ -53,7 +59,7 @@ const Form = () => {
           </div>
 
           <div className={style.formcontainer}>
-            <label htmlFor="image">Image: </label>
+            <label htmlFor="image">Image <Required/></label>
             <input
               className={style.inputField}
               type="text"
@@ -67,7 +73,7 @@ const Form = () => {
           </div>
 
           <div className={style.formcontainer}>
-            <label>hp: </label>
+            <label>hp <Required/></label>
             <input
               className={style.inputField}
               type="number"
@@ -83,7 +89,7 @@ const Form = () => {
           </div>
 
           <div className={style.formcontainer}>
-            <label>Attack: </label>
+            <label>Attack <Required/></label>
             <input
               className={style.inputField}
               type="number"
@@ -99,7 +105,7 @@ const Form = () => {
           </div>
 
           <div className={style.formcontainer}>
-            <label>Defense: </label>
+            <label>Defense <Required/></label>
             <input
               className={style.inputField}
               type="number"
@@ -115,7 +121,7 @@ const Form = () => {
           </div>
 
           <div className={style.formcontainer}>
-            <label>Speed: </label>
+            <label>Speed </label>
             <input
               className={style.inputField}
               type="number"
@@ -131,7 +137,7 @@ const Form = () => {
           </div>
 
           <div className={style.formcontainer}>
-            <label>Height: </label>
+            <label>Height </label>
             <input
               className={style.inputField}
               type="number"
@@ -147,7 +153,7 @@ const Form = () => {
           </div>
 
           <div className={style.formcontainer}>
-            <label>Weight: </label>
+            <label>Weight </label>
             <input
               className={style.inputField}
               type="number"
@@ -163,7 +169,7 @@ const Form = () => {
           </div>
 
           <div>
-            <label htmlFor="types">Types: </label>
+            <label htmlFor="types">Types </label>
             <select
               className={style.select}
               name="types"
