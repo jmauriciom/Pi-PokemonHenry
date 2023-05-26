@@ -32,6 +32,12 @@ const usePostPokemon = ({ setSelectedType }) => {
             types: [...input.types, event.target.value]
         })
     };
+    const handleDeleteType  = (type) => {
+        setInput({
+            ...input,
+            types: input.types.filter(el => el !== type)
+        })
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -48,10 +54,10 @@ const usePostPokemon = ({ setSelectedType }) => {
             types: [],
         });
         setSelectedType([]);
-        history.push('./home');        
+        history.push('./home');
     };
 
-    return [input, handleInputChange, handleSelectChange, handleSubmit];
+    return [input, handleInputChange, handleSelectChange, handleSubmit, handleDeleteType];
 
 };
 

@@ -25,6 +25,7 @@ const validation = (value) => {
     // if(!value.weight) errors.weight = "Need weight"
     if(value.weight < 0 || value.weight > 255) errors.weight = "Weight must be between 0 and 255"
 
+    
     return errors
 }
 
